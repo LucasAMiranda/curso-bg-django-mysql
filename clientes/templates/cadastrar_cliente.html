@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+    <style>
+        /* Reset de estilos básicos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Definição de fontes globais */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Estilos do container do formulário */
+        form {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 500px;
+            margin: 40px auto;
+        }
+
+        /* Título do formulário */
+        h1 {
+            text-align: center;
+            color: #007bff;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos dos campos de input */
+        input[type="text"], input[type="email"], input[type="password"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s;
+        }
+
+        /* Estilos para o foco dos campos de input */
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Botão de envio */
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Alterar cor ao passar o mouse no botão */
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Link para voltar */
+        a {
+            display: block;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+
+        /* Alterar cor ao passar o mouse no link */
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos para as mensagens de erro, caso existam */
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsividade para dispositivos móveis */
+        @media screen and (max-width: 600px) {
+            form {
+                padding: 20px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+   <form method="POST">
+    <h1>Cadastro Clientes</h1>
+        {% if messages %}
+            <div class="success-message"> 
+                {% for message in messages %}
+
+                    <p>{{message}}</p>
+
+                {% endfor %}
+            </div>
+
+        {% endif %}
+
+        {%csrf_token%}
+        {{form.as_p}}
+        <button type="submit">salvar</button>
+   </form> 
+   <a href="{% url 'lista_clientes' %}">voltar</a>
+</body>
+</html>

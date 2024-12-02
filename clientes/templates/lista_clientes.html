@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Clientes</title>
+    <style>
+                /* Reset de estilos básicos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Definição de fontes globais */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Título da página */
+        h1 {
+            text-align: center;
+            color: #007bff;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos para a tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        /* Estilos para as células da tabela */
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        /* Cabeçalho da tabela */
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Estilo para as linhas de dados */
+        td {
+            background-color: #fff;
+            font-size: 1em;
+        }
+
+        /* Estilo para as linhas alternadas */
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        /* Estilo para as células ao passar o mouse */
+        tr:hover td {
+            background-color: #e9f2fd;
+        }
+
+        /* Links */
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        /* Estilo para o botão de voltar */
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Alterar cor ao passar o mouse no botão */
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para os links e botão no final */
+        a, button {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Responsividade para dispositivos móveis */
+        @media screen and (max-width: 768px) {
+            table {
+                width: 100%;
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            button, a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Lista de Clientes</h1>
+    <table>
+        <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            </tr>
+            {% for cliente in clientes %}
+            <tr>
+            <td>{{ cliente.cpf }}</td>
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.telefone }}</td>
+            <td>{{ cliente.email }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'cadastrar_cliente' %}">Cadastrar Novo Cliente</a>
+    <br><br>
+    <!-- Botão para voltar ao menu -->
+    <a href="{% url 'menu_principal' %}">
+    <button>Voltar para o Menu</button>
+    </a>
+</body>
+</html>
