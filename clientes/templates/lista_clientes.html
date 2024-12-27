@@ -123,6 +123,16 @@
 </head>
 <body>
     <h1>Lista de Clientes</h1>
+
+       <!-- Exibindo a mensagem de sucesso, caso haja -->
+       {% if messages %}
+       <div class="success-message">
+           {% for message in messages %}
+               <p>{{ message }}</p>
+           {% endfor %}
+       </div>
+   {% endif %}
+
     <table>
         <tr>
             <th>CPF</th>
@@ -145,5 +155,17 @@
     <a href="{% url 'menu_principal' %}">
     <button>Voltar para o Menu</button>
     </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            var successMessage = document.getElementById('success-message');
+
+            if(successMessage){
+                setTimeout(function(){
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }
+        })
+    </script>
 </body>
 </html>
