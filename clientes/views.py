@@ -3,7 +3,9 @@ from django.http import JsonResponse
 from .models import Cliente
 from .forms import ClienteForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required
 #lietar e cadastrar Clientes
 
 def lista_clientes(request):

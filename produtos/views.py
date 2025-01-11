@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .models import Produto
 from .forms import ProdutoForm
+from django.contrib.auth.decorators import login_required
+
+@login_required
 
 def lista_produtos(request):
     produtos = Produto.objects.all()

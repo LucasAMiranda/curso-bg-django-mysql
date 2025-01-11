@@ -59,7 +59,7 @@ ROOT_URLCONF = 'meu_projeto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'menu' / 'templates'],
+        'DIRS': [BASE_DIR / 'login' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,9 +104,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = '/menu/'
-LOGOUT_REDIRECT_URL = '/login/'
-LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/menu/'   #Redireciona para o menu após login
+LOGOUT_REDIRECT_URL = '/login/' #Redireciona para a página após logout
+LOGIN_URL = '/login/'           #url da página de login
 
 
 # Internationalization
@@ -114,7 +114,7 @@ LOGIN_URL = '/login/'
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
