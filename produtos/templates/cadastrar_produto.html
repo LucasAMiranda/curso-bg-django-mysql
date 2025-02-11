@@ -106,54 +106,27 @@
 </head>
 
 <body>
-<div class="container">
-    <h1>Cadastrar Produto</h1>
-    <form method="POST">
+    <div class="container">
+        <h1>Cadastrar Cliente</h1>
+        <form method="POST">
         {% csrf_token %}
-        
         <div class="form-group">
-            {{ form.codigo.label_tag }}
-            <div class="flex-group">
-                {{ form.codigo }}
-                <button type="button" id="btnConsultar">Consultar</button>
-            </div>
+        {{ form.cpf.label_tag }}
+        <div class="flex-group">
+        {{ form.cpf }}
+        <button type="button" id="btnConsultar" style="padding: 10px;
+        background-color: #007bff; color: white; border: none; border-radius:
+        5px; cursor: pointer;">Consultar</button>
         </div>
-        
+        </div>
         <div class="form-group">
-            {{ form.descricao.label_tag }}
-            {{ form.descricao }}
+        {{ form.nome.label_tag }}
+        {{ form.nome }}
         </div>
-        
         <div class="form-group">
-            {{ form.marca.label_tag }}
-            {{ form.marca }}
+        {{ form.telefone.label_tag }}
+        {{ form.telefone }}
         </div>
-
-        <div class="form-group">
-            {{ form.quantidade_minima.label_tag }}
-            {{ form.quantidade_minima }}
-        </div>
-
-        <div class="form-group">
-            {{ form.quantidade.label_tag }}
-            {{ form.quantidade }}
-        </div>
-
-        <div class="form-group">
-            {{ form.custo.label_tag }}
-            {{ form.custo }}
-        </div>
-
-        <div class="form-group">
-            {{ form.preco.label_tag }}
-            {{ form.preco }}
-        </div>
-
-        <div class="form-group">
-            {{ form.observacao.label_tag }}
-            {{ form.observacao }}
-        </div>
-
         <div class="button-group">
             <button type="submit">Salvar</button>
             <button type="button" id="btnLimpar" style="background-color: #6c757d;">Limpar</button>
@@ -165,68 +138,76 @@
 </div>
 
 <script>
-    // Consultar produto
-    document.getElementById('btnConsultar').addEventListener('click', function () {
-        let codigo = document.querySelector('input[name="codigo"]').value;
+    // Consultar cliente
+    document.getElementById('btnConsultar').addEventListener('click',
+    function () {
+        let cpf = document.querySelector('input[name="cpf"]').value;
+        // Remove pontos, traços e espaços do CPF
+        cpf = cpf.replace(/\D/g, '');
+        if (!cpf) {
+        alert('Por favor, insira um CPF válido.');
+        return;
+        }
 
-        if (!codigo) {
-            alert('Por favor, insira um código válido.');
+        fetch(`/clientes/consultar_cliente/${cpf}/`) // Corrigido para usar
+
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Cliente não encontrado.');
+        }
+        return response.json();
+        })
+        .then(data => {
+            document.querySelector('input[name="nome"]').value =
+            data.nome;
+            document.querySelector('input[name="telefone"]').value =
+            data.telefone;
+            document.querySelector('input[name="email"]').value =
+            data.email;
+        })
+        .catch(error => {
+            alert(error.message);
+        });
+
+        document.getElementById('btnLimpar').addEventListener('click',
+        function () {
+            document.querySelector('input[name="cpf"]').value = '';
+            document.querySelector('input[name="nome"]').value = '';
+            document.querySelector('input[name="telefone"]').value = '';
+            document.querySelector('input[name="email"]').value = '';
+        });
+        // Excluir cliente
+        document.getElementById('btnExcluir').addEventListener('click',
+        function () {
+            const cpf = document.querySelector('input[name="cpf"]').value;
+            if (!cpf) {
+            alert('Por favor, insira um CPF válido para excluir.');
             return;
         }
 
-        fetch(`/produtos/consultar/${codigo}/`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Produto não encontrado.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.querySelector('input[name="descricao"]').value = data.descricao;
-                document.querySelector('input[name="marca"]').value = data.marca;
-                document.querySelector('input[name="quantidade_minima"]').value = data.quantidade_minima;
-                document.querySelector('input[name="quantidade"]').value = data.quantidade;
-                document.querySelector('input[name="custo"]').value = data.custo;
-                document.querySelector('input[name="preco"]').value = data.preco;
-                document.querySelector('textarea[name="observacao"]').value = data.observacao;
-            })
-            .catch(error => {
-                alert(error.message);
-            });
-    });
 
-    // Limpar campos
-    document.getElementById('btnLimpar').addEventListener('click', function () {
-        document.querySelectorAll('input, textarea').forEach(el => el.value = '');
-    });
-
-    // Excluir produto
-    document.getElementById('btnExcluir').addEventListener('click', function () {
-        let codigo = document.querySelector('input[name="codigo"]').value;
-
-        if (!codigo) {
-            alert('Por favor, insira um código válido.');
-            return;
+        if (confirm('Tem certeza de que deseja excluir este cliente?')) {
+            fetch(`/clientes/excluir_cliente/${cpf}/`, {
+            method: 'DELETE',
+            headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
         }
-
-        if (confirm('Tem certeza de que deseja excluir este produto?')) {
-            fetch(`/produtos/excluir/${codigo}/`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao excluir produto.');
-                }
-                alert('Produto excluído com sucesso.');
-                document.getElementById('btnLimpar').click();
-            })
-            .catch(error => {
-                alert(error.message);
-            });
+        })
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Erro ao excluir cliente. Verifique se o CPF éválido.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Cliente excluído com sucesso.');
+            document.getElementById('btnLimpar').click(); // Limpar os campos
+        })
+        .catch(error => {
+             alert(error.message);
+        });
         }
+        });
     });
 </script>
 
