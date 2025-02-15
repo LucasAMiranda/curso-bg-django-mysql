@@ -42,8 +42,8 @@
     <div class="menu-container">
         <h1>Menu Principal</h1>
         <a href="{% url 'lista_clientes' %}" class="menu-item">Cadastro de Clientes</a>
-        <a href="{% url 'cadastrar_produto' %}" class="menu-item">Cadastro de Produtos</a>
-        <a href="" class="menu-item">Cadastro de Usuários</a>
+        <a href="{% url 'lista_produtos' %}" class="menu-item">Cadastro de Produtos</a>
+        <a href="{% url 'listar_usuarios' %}" class="menu-item">Cadastro de Usuários</a>
         <a href="" class="menu-item">Vendas</a>
         <a href="" class="menu-item">Relatórios</a>
         <form action="{% url 'logout' %}" method="post" style="margin: 0; padding: 0;">

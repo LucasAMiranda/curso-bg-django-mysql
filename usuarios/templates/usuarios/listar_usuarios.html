@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+</head>
+<body>
+    <h2>Lista de Usuários</h2>
+    <a href="{% url 'cadastrar_usuario' %}">Cadastrar Novo Usuário</a> |
+    <a href="{% url 'logout_usuario' %}">Logout</a>
+    
+    <table>
+        <tr>
+            <th>E-mail</th>
+            <th>Ações</th>
+        </tr>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.email }}</td>
+            <td>
+                <a href="{% url 'editar_usuario' usuario.id %}">Editar</a> | 
+                <a href="{% url 'excluir_usuario' usuario.id %}" onclick="return confirm('Tem certeza?');">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
