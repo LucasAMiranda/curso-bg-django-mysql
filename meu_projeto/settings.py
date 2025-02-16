@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'clientes',
     'produtos',
     'usuarios',
+    'vendas'
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,6 @@ ROOT_URLCONF = 'meu_projeto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
         'DIRS': [
             BASE_DIR / 'templates',          
             BASE_DIR / 'login/templates',    
@@ -70,6 +70,7 @@ TEMPLATES = [
             BASE_DIR / 'vendas/templates',
             BASE_DIR / 'usuarios/templates',
         ],
+        'APP_DIRS': True,  # <- Importante para buscar templates nas pastas das apps
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
