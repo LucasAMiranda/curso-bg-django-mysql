@@ -11,8 +11,9 @@ urlpatterns = [
     path('menu/', include('menu.urls')),
     path('clientes/', include('clientes.urls')),
     path('produtos/', include('produtos.urls')),
-     path('usuarios/', include('usuarios.urls')),  # Inclui as rotas da app `usuarios`
+    path('usuarios/', include('usuarios.urls')),  # Inclui as rotas da app `usuarios`
     path('vendas/', include('vendas.urls')),
+    path('relatorios/', include('relatorios.urls')),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'), 
     path('', lambda request: redirect('/login/')), 
 ]

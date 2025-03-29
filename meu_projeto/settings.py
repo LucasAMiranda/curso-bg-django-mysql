@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'clientes',
     'produtos',
     'usuarios',
-    'vendas'
+    'vendas',
+    'relatorios',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,7 @@ TEMPLATES = [
             BASE_DIR / 'produtos/templates',
             BASE_DIR / 'vendas/templates',
             BASE_DIR / 'usuarios/templates',
+            BASE_DIR / 'relatorios/templates'
         ],
         'APP_DIRS': True,  # <- Importante para buscar templates nas pastas das apps
         'OPTIONS': {
